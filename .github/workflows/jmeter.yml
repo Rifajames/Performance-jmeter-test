@@ -27,7 +27,7 @@ jobs:
 
     - name: Run JMeter Test
       run: |
-        ./jmeter/bin/jmeter -n -t performance-test.jmx -l result.jtl -e -o report
+        ./jmeter/bin/jmeter -n -t performance-jmeter-test.jmx -l result.jtl -e -o report
 
     - name: Upload HTML Report Artifact
       uses: actions/upload-artifact@v4
