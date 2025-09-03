@@ -1,0 +1,49 @@
+name: JMeter Performance Test
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  performance-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup JDK (needed for JMeter)
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: Download Apache JMeter
+      run: |
+        curl -L https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz -o jmeter.tgz
+        tar -xvzf jmeter.tgz
+        mv apache-jmeter-5.6.3 jmeter
+
+    - name: Run JMeter Test
+      run: |
+        ./jmeter/bin/jmeter -n -t performance-test.jmx -l result.jtl -e -o report
+
+    - name: Upload HTML Report Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: jmeter-report
+        path: report/
+
+    - name: Send Email with Report
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.EMAIL_USERNAME }}
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        subject: "JMeter Performance Test Report"
+        to: "recipient@example.com"
+        from: "QA Automation <${{ secrets.EMAIL_USERNAME }}>"
+        body: "Hi Team, attached is the JMeter performance test report."
+        attachments: report/index.html
