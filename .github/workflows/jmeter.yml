@@ -45,7 +45,7 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         subject: "✅ JMeter Performance Test PASSED"
-        to: "qa-team@example.com"
+        to: "mrifajames39@gmail.com"
         from: "CI/CD <${{ secrets.EMAIL_USERNAME }}>"
         body: "Hi Team, the latest JMeter performance test PASSED 🎉. Please check the attached report."
         attachments: report/index.html
@@ -60,7 +60,7 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         subject: "❌ JMeter Performance Test FAILED"
-        to: "qa-team@example.com"
+        to: "mrifajames39@gmail.com"
         from: "CI/CD <${{ secrets.EMAIL_USERNAME }}>"
         body: "Hi Team, the latest JMeter performance test FAILED ❌. Please check the attached report for details."
         attachments: report/index.html
