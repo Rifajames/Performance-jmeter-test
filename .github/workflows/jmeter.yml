@@ -30,7 +30,7 @@ jobs:
         ./jmeter/bin/jmeter -n -t performance-test.jmx -l result.jtl -e -o report
 
     - name: Upload HTML Report Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: jmeter-report
         path: report/
